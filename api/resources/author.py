@@ -11,11 +11,10 @@ class AuthorResource(Resource):
 
         author = AuthorModel.query.get(author_id)
         if author:
-            return f"Author id={author_id} not found", 404
+            return author.to_dict(), 200
 
-        return author.to_dict(), 200
-
-
+        return {"Error:": f"Author id={author_id} not found"}, 404
+       
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument("name", required=True)
